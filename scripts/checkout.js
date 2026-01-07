@@ -1,9 +1,9 @@
 import { cart, removeFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
-import { getQuantity, updateQuantity } from '../data/cart.js';
+import { getQuantity, updateQuantity,updateDeliveryOption } from '../data/cart.js';
 import { deliveryOptions } from '../data/deliveryOptions.js'
-import  dayjs  from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 // import  dayjs  from '../public/dayjs.js'
 
 let orderSummaryHtml = ``;
@@ -18,21 +18,21 @@ cart.forEach((cartItem) => {
 
     }
   });
-  let deliveryOptionID=cartItem.deliveryOptionID;
+  let deliveryOptionID = cartItem.deliveryOptionID;
   let deliveryOption;
-  deliveryOptions.forEach((option)=>{
-    if(deliveryOptionID===option.id){
-      deliveryOption=option;
+  deliveryOptions.forEach((option) => {
+    if (deliveryOptionID === option.id) {
+      deliveryOption = option;
     }
-    
+
   });
-    const deliveryDate = today.add(
-      deliveryOption.deliveryDays,
-      'days'
-    );
-    const dataString = deliveryDate.format(
-      'dddd,MMMM D'
-    );
+  const deliveryDate = today.add(
+    deliveryOption.deliveryDays,
+    'days'
+  );
+  const dataString = deliveryDate.format(
+    'dddd,MMMM D'
+  );
   orderSummaryHtml += `
   <div class="cart-item-container-${matchingItem.id}">
             <div class="delivery-date">
@@ -71,7 +71,7 @@ cart.forEach((cartItem) => {
                 <div class="delivery-options-title">
                   Choose a delivery option:
                 </div>
-             ${deliveryOptionsHTML(matchingItem,cartItem)}
+             ${deliveryOptionsHTML(matchingItem, cartItem)}
               
                 </div>
               </div>
@@ -169,7 +169,7 @@ function processUpdateQuantity(productID) {
     return;
   }
 }
-function deliveryOptionsHTML(matchingItem,cartItem) {
+function deliveryOptionsHTML(matchingItem, cartItem) {
   let deliveryOptionsHTML = ``
   deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
@@ -185,13 +185,16 @@ function deliveryOptionsHTML(matchingItem,cartItem) {
       === 0
       ? 'Free'
       : `$${currencyFormat(deliveryOption.priceCents)} -shipping`;
-    const isChecked=deliveryOption.id===cartItem.deliveryOptionID;
+    const isChecked = deliveryOption.id === cartItem.deliveryOptionID;
 
 
 
     deliveryOptionsHTML +=
       `   
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+           productID="${matchingItem.id}"
+           deliveryOptionId="${deliveryOption.id}"
+      >
               <input type="radio"
               ${isChecked ? 'checked' : ''}
                 class="delivery-option-input"
@@ -209,3 +212,10 @@ function deliveryOptionsHTML(matchingItem,cartItem) {
   });
   return deliveryOptionsHTML;
 }
+document.querySelectorAll('.js-delivery-option')
+  .forEach((deliveryOption) => {
+    deliveryOption.addEventListener('click', () => {
+      const {productID,deliveryOptionId} =deliveryOption.dataset;
+      updateDeliveryOption(productID,deliveryOptionId);
+    })
+  })
