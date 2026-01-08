@@ -38,7 +38,7 @@ export function addToCart(productID, quantity) {
             {
                 productID: productID,
                 quantity: quantity,
-                deliveryOptions: '1'
+                deliveryOptionID: '1'
             }
         )
     }
