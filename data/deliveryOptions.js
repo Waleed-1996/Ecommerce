@@ -1,3 +1,6 @@
+import { isWeekend } from '../scripts/utils/dates.js'
+import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
+
 export const deliveryOptions = [{
     id: '1',
     deliveryDays: 7,
@@ -22,5 +25,18 @@ export function getDeliveryOption(deliveryOptionId) {
         }
 
     });
-    return deliveryOption||deliveryOptions[0];
+    return deliveryOption || deliveryOptions[0];
+}
+export function calculateDeliveryDate(deliveryDays) {
+    let today = dayjs();
+    let result = deliveryDays;
+    while (deliveryDays != 0) {
+        if (isWeekend(today.add(deliveryDays, 'days'))) {
+            result++;
+
+        }
+        deliveryDays--;
+    }
+    return result;
+
 }

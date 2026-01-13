@@ -1,7 +1,7 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
-
+import { calculateDeliveryDate } from '../data/deliveryOptions.js';
 
 let productHTML = ``;
 products.forEach((product) => {
