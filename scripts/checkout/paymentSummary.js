@@ -16,13 +16,17 @@ export function renderPaymnetSummary() {
     let totalBeforeTax=productPriceCents+shippingPriceCents;
     let estimatedTax=totalBeforeTax*0.1;
     let orderTotal=totalBeforeTax+estimatedTax;
+    // 15i.In the payment summary on the right ,the number in the first line
+    //   "Items (3):" is supposed to show the cart quantity .However,this number 
+    //    is always 3.Replace this number with the actual cart quantity and make 
+    //    sure it updates whenever we change the cart.
     let paymentSummaryHTML=`
         <div class="payment-summary-title">
             Order Summary
         </div>
 
         <div class="payment-summary-row">
-         <div>Items (3):</div>
+         <div>Items (${cart.length}):</div>
         <div class="payment-summary-money">$${currencyFormat(productPriceCents)}</div>
             </div>
 

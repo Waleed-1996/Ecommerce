@@ -2,8 +2,9 @@ import { cart, removeFromCart } from '../../data/cart.js';
 import { products } from '../../data/products.js';
 import { currencyFormat } from '../utils/money.js';
 import { getQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
-import { deliveryOptions,getDeliveryOption } from '../../data/deliveryOptions.js'
-import {renderPaymnetSummary} from '../checkout/paymentSummary.js'
+import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js'
+import { renderPaymnetSummary } from '../checkout/paymentSummary.js'
+import { renderCheckOutHeader } from './checkoutHeader.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 // import  dayjs  from '../public/dayjs.js'
 
@@ -23,8 +24,8 @@ export function renderOrderSummary() {
       }
     });
     const deliveryOptionID = cartItem.deliveryOptionID;
-    let deliveryOption=getDeliveryOption(deliveryOptionID);
-   
+    let deliveryOption = getDeliveryOption(deliveryOptionID);
+
 
     let today = dayjs();
     let deliveryDate = today.add(
@@ -87,10 +88,16 @@ export function renderOrderSummary() {
       deleteItem.addEventListener('click', () => {
         let deleteItemId = deleteItem.dataset.productId;
 
-        updateCartQuantity(getQuantity(deleteItemId), 'js-items-quantity', false);
+        // updateCartQuantity(getQuantity(deleteItemId), 'js-items-quantity', false);
         removeFromCart(deleteItemId);
-        const container = document.querySelector(`.cart-item-container-${deleteItemId}`);
-        container.remove();
+        // const container = document.querySelector(`.cart-item-container-${deleteItemId}`);
+        // container.remove();
+        //   15h.WHen deleting a product from the cart,instead of using the DOM
+        //  and updating the page directly with .delete(),regenerate the HTML
+        //  for the order summary
+        renderPaymnetSummary();
+        renderOrderSummary();
+        renderCheckOutHeader();
       })
     });
   document.querySelectorAll('.js-update-link')
@@ -117,7 +124,7 @@ export function renderOrderSummary() {
       savelink.addEventListener('click', () => {
         let saveLinkID = savelink.dataset.productId;//
         processUpdateQuantity(saveLinkID);
-        renderPaymnetSummary();
+
 
 
       })
@@ -130,7 +137,7 @@ export function renderOrderSummary() {
           let saveLinkID = savelink.dataset.productId;//
 
           processUpdateQuantity(saveLinkID);
-        renderPaymnetSummary();
+
 
 
         }
@@ -156,14 +163,15 @@ export function renderOrderSummary() {
     const containerUpdate = Number(document.querySelector(`.js-update-quantity-input-${productID}`).value);
 
     if (containerUpdate > 0 && containerUpdate < 14) {
-      updateCartQuantity(getQuantity(productID), 'js-items-quantity', false);
+      // updateCartQuantity(getQuantity(productID), 'js-items-quantity', false);
 
       updateQuantity(productID, containerUpdate);
-      updateCartQuantity(getQuantity(productID), 'js-items-quantity', true);
-
+      // updateCartQuantity(getQuantity(productID), 'js-items-quantity', true);
+      // renderCheckOutHeader();
       const cartQuantity = document.querySelector(`.cart-item-container-${productID} .quantity-label`);
       cartQuantity.innerHTML = containerUpdate;
-
+      renderPaymnetSummary();
+      renderCheckOutHeader();
       container.classList.remove('is-editing-quantity');
       document.querySelector(`.js-Error-message-${productID}`)
         .innerHTML = '';
@@ -221,10 +229,10 @@ export function renderOrderSummary() {
     .forEach((radioButton) => {
       radioButton.addEventListener('click', () => {
 
-        const  productID = radioButton.dataset.productId;
-        const  deliveryOptionId  = radioButton.dataset.deliveryOptionId;
+        const productID = radioButton.dataset.productId;
+        const deliveryOptionId = radioButton.dataset.deliveryOptionId;
 
-       
+
         updateDeliveryOption(productID, deliveryOptionId);
         renderOrderSummary();
         renderPaymnetSummary();

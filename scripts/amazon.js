@@ -2,6 +2,7 @@ import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
 
+
 let productHTML = ``;
 products.forEach((product) => {
   productHTML += `
@@ -80,6 +81,7 @@ console.log(selectValue);
 
     })
   });
+
 
 
 
