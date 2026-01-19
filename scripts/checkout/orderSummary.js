@@ -19,7 +19,8 @@ export function renderOrderSummary() {
     products.forEach((product) => {
       if (product.id === cartItem.productID) {
         matchingItem = product;
-        updateCartQuantity(cartItem.quantity, 'js-items-quantity', true);
+        // updateCartQuantity(cartItem.quantity, 'js-items-quantity', true);
+
 
       }
     });
@@ -37,7 +38,8 @@ export function renderOrderSummary() {
       'dddd,MMMM D'
     );
     orderSummaryHtml += `
-    <div class="cart-item-container-${matchingItem.id}">
+    <div class="js-cart-item-container
+    cart-item-container-${matchingItem.id}">
               <div class="delivery-date">
                 Delivery date: ${dataString}
               </div>
@@ -54,7 +56,7 @@ export function renderOrderSummary() {
                     $${currencyFormat(matchingItem.priceCents)}
                     
                   </div>
-                  <div class="product-quantity">
+                  <div class="product-quantity js-product-quantity-${matchingItem.id}">
                     <span>
                       Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                     </span>
@@ -63,7 +65,7 @@ export function renderOrderSummary() {
                     </span>
                     <input class="update-quantity-input js-update-quantity-input-${matchingItem.id}"data-product-id=${matchingItem.id}>
                     <span class="save-quantity-link link-primary" data-product-id=${matchingItem.id}>Save</span>
-                    <span class="delete-quantity-link link-primary js-delete-link" data-product-id=${matchingItem.id}>
+                    <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingItem.id}" data-product-id=${matchingItem.id}>
                       Delete
                     </span>
                     <div class="Error-message js-Error-message-${matchingItem.id}" ></div>
@@ -87,14 +89,7 @@ export function renderOrderSummary() {
     .forEach((deleteItem) => {
       deleteItem.addEventListener('click', () => {
         let deleteItemId = deleteItem.dataset.productId;
-
-        // updateCartQuantity(getQuantity(deleteItemId), 'js-items-quantity', false);
         removeFromCart(deleteItemId);
-        // const container = document.querySelector(`.cart-item-container-${deleteItemId}`);
-        // container.remove();
-        //   15h.WHen deleting a product from the cart,instead of using the DOM
-        //  and updating the page directly with .delete(),regenerate the HTML
-        //  for the order summary
         renderPaymnetSummary();
         renderOrderSummary();
         renderCheckOutHeader();
@@ -106,11 +101,11 @@ export function renderOrderSummary() {
         let updateLinkID = updatelink.dataset.productId;
         const container = document.querySelector(`.cart-item-container-${updateLinkID}`);
         if (container.classList.contains('is-editing-quantity')) {
-          console.log('yes thats right');
+         
           container.classList.remove('is-editing-quantity');
 
         } else {
-          console.log('yes thats negtive');
+      
           container.classList.add('is-editing-quantity');
 
 
