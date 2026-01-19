@@ -1,4 +1,4 @@
-import { currencyFormat } from "../scripts/utils/money.js";
+import { currencyFormat } from "../../scripts/utils/money.js";
 console.log('converts cents into dollars');
 if(currencyFormat(2095)==='20.95'){
     console.log('passed');
