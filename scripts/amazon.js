@@ -1,7 +1,8 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
-import { calculateDeliveryDate } from '../data/deliveryOptions.js';
+// import { calculateDeliveryDate } from '../data/deliveryOptions.js';
+import "../data/cart-oop.js";
 
 let productHTML = ``;
 products.forEach((product) => {
@@ -72,12 +73,12 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click', () => {
       const productID = button.dataset.productId;
       let selectValue = Number(document.querySelector(`.js-quantity-${productID}`).value);
-console.log(selectValue);
+// console.log(selectValue);
       addToCart(productID,selectValue);
       updateCartQuantity(selectValue,'js-cart-quantity');
 
-      console.log(cartQuantity);
-      console.log(cart);
+      // console.log(cartQuantity);
+      // console.log(cart);
 
     })
   });
