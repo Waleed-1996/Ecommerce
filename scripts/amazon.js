@@ -2,7 +2,7 @@ import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
 // import { calculateDeliveryDate } from '../data/deliveryOptions.js';
-import "../data/cart-oop.js";
+import "../data/cart-class.js";
 
 let productHTML = ``;
 products.forEach((product) => {
