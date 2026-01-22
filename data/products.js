@@ -1,33 +1,47 @@
 import { currencyFormat } from "../scripts/utils/money.js";
-export function getProduct(productId){
+export function getProduct(productId) {
   let matchingItem;
-  products.forEach((product)=>{
-    if(product.id===productId){
-      matchingItem=product;
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingItem = product;
 
     }
   });
   return matchingItem;
 }
-class Product{
+class Product {
   id;
   image;
   name;
   rating;
   priceCents;
-  constructor(productDetails){
-    this.id=productDetails.id;
-    this.image=productDetails.image;
-    this.name=productDetails.name;
-    this.priceCents=productDetails.priceCents;
-    this.rating=productDetails.rating;
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.priceCents = productDetails.priceCents;
+    this.rating = productDetails.rating;
   }
-  getRatingUrl(){
+  getRatingUrl() {
     return `src="images/ratings/rating-${this.rating.stars * 10}.png">`
   }
-  getPrice(){
+  getPrice() {
     return `$${currencyFormat(this.priceCents)}`;
 
+  }
+  getExtraInfo(){
+    return ``;
+  }
+}
+class Clothing extends Product {
+  sizeChartLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  getExtraInfo(){
+    //super().getExtraInfo();
+    return `<a href="${this.sizeChartLink}" target="_blank">see more </a>`;
   }
 }
 export const products = [
@@ -689,7 +703,10 @@ export const products = [
       "mens"
     ]
   }
-].map((productDetails)=>{
- return new Product(productDetails);
+].map((productDetails) => {
+  if(productDetails.type==='clothing'){
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
 });
 console.log(products);
