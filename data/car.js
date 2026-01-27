@@ -88,7 +88,7 @@ class Car {
 class RaceCar extends Car{
     acceleration;
     constructor(carDetails){
-        this.super(carDetails);
+        super(carDetails);
         this.acceleration=carDetails.acceleration;
     }
     go(){
@@ -111,7 +111,7 @@ let cars = [
 ].map((carDetails) => {
     return new Car(carDetails);
 });
-const racecar={brand: 'Mclaren' , model: 'F1' , acceleration:20}.map((carDetails)=>{
+const racecar=[{brand: 'Mclaren' , model: 'F1' , acceleration:20}].map((carDetails)=>{
 return new RaceCar(carDetails);
 })
 console.log(cars);

@@ -4,6 +4,7 @@ import { currencyFormat } from './utils/money.js';
 // import { calculateDeliveryDate } from '../data/deliveryOptions.js';
 import "../data/cart-class.js";
 import "../data/car.js";
+import "../data/appliance.js";
 
 let productHTML = ``;
 products.forEach((product) => {
