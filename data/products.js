@@ -1,6 +1,6 @@
 import { Product } from "./productClass.js";
-import {Appliance } from "./appliance.js";
-import {Clothing } from "./clothing.js";
+import { Appliance } from "./appliance.js";
+import { Clothing } from "./clothing.js";
 
 
 export function getProduct(productId) {
@@ -75,9 +75,9 @@ export const products = [
       "kitchen",
       "appliances"
     ],
-    type:'appliance',
-    warrantyLink:'images/appliance-warranty.png',
-    instructionsLink:'images/appliance-instructions.png'
+    type: 'appliance',
+    warrantyLink: 'images/appliance-warranty.png',
+    instructionsLink: 'images/appliance-instructions.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -263,9 +263,9 @@ export const products = [
       "appliances",
       "kitchen"
     ],
-     type:'appliance',
-    warrantyLink:'images/appliance-warranty.png',
-    instructionsLink:'images/appliance-instructions.png'
+    type: 'appliance',
+    warrantyLink: 'images/appliance-warranty.png',
+    instructionsLink: 'images/appliance-instructions.png'
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -631,9 +631,9 @@ export const products = [
       "kitchen",
       "appliances"
     ],
-     type:'appliance',
-    warrantyLink:'images/appliance-warranty.png',
-    instructionsLink:'images/appliance-instructions.png'
+    type: 'appliance',
+    warrantyLink: 'images/appliance-warranty.png',
+    instructionsLink: 'images/appliance-instructions.png'
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -683,15 +683,34 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
-  if(productDetails.type==='clothing'){
+  if (productDetails.type === 'clothing') {
     return new Clothing(productDetails);
   }
-  else if(productDetails.type==='appliance'){
+  else if (productDetails.type === 'appliance') {
     return new Appliance(productDetails);
-  }else{
-  return new Product(productDetails);
-    
+  } else {
+    return new Product(productDetails);
+
   }
 });
+// let products [];
+// function loadProdcuts(fun) {
+//   let xhr = new XMLHttpRequest();
+//   xhr.addEventListener('load', () => {
+//     products = JSON.parse(xhr.response).map((productDetails) => {
+//       if (productDetails.type === 'clothing') {
+//         return new Clothing(productDetails);
+//       }
+//       else if (productDetails.type === 'appliance') {
+//         return new Appliance(productDetails);
+//       } else {
+//         return new Product(productDetails);
 
+//       }
+//     });
+//     fun();
+//   })
+//   xhr.open('GET', 'https://supersimplebackend.dev/products');
+//   xhr.send();
+// }
 // console.log(products);

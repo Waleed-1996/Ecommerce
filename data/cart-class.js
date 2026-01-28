@@ -101,7 +101,7 @@ class Cart {
 
     }
 }
-const cart=new Cart('oop-cart');
+export const cart=new Cart('oop-cart');
 const busnissCart=new Cart('busnissCart');
 console.log(cart);
 console.log(busnissCart);

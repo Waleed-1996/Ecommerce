@@ -1,7 +1,7 @@
-import { cart, removeFromCart } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 import { products } from '../../data/products.js';
 import { currencyFormat } from '../utils/money.js';
-import { getQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
+// import { getQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
 import { deliveryOptions, getDeliveryOption,calculateDeliveryDate } from '../../data/deliveryOptions.js'
 import { renderPaymnetSummary } from '../checkout/paymentSummary.js'
 import { renderCheckOutHeader } from './checkoutHeader.js';
@@ -13,7 +13,7 @@ export function renderOrderSummary() {
 
   let orderSummaryHtml = ``;
   let cartQuantity = 0;
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     let matchingItem;
 
     products.forEach((product) => {
@@ -89,7 +89,7 @@ export function renderOrderSummary() {
     .forEach((deleteItem) => {
       deleteItem.addEventListener('click', () => {
         let deleteItemId = deleteItem.dataset.productId;
-        removeFromCart(deleteItemId);
+        cart.removeFromCart(deleteItemId);
         renderPaymnetSummary();
         renderOrderSummary();
         renderCheckOutHeader();
@@ -160,7 +160,7 @@ export function renderOrderSummary() {
     if (containerUpdate > 0 && containerUpdate < 14) {
       // updateCartQuantity(getQuantity(productID), 'js-items-quantity', false);
 
-      updateQuantity(productID, containerUpdate);
+      cart.updateQuantity(productID, containerUpdate);
       // updateCartQuantity(getQuantity(productID), 'js-items-quantity', true);
       // renderCheckOutHeader();
       const cartQuantity = document.querySelector(`.cart-item-container-${productID} .quantity-label`);
@@ -228,7 +228,7 @@ export function renderOrderSummary() {
         const deliveryOptionId = radioButton.dataset.deliveryOptionId;
 
 
-        updateDeliveryOption(productID, deliveryOptionId);
+        cart.updateDeliveryOption(productID, deliveryOptionId);
         renderOrderSummary();
         renderPaymnetSummary();
 
