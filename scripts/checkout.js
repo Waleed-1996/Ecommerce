@@ -1,10 +1,14 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import {renderPaymnetSummary}  from "./checkout/paymentSummary.js"
 import { renderCheckOutHeader } from "./checkout/checkoutHeader.js";
+import { loadProdcuts } from "../data/products.js";
 
-renderCheckOutHeader();
-renderOrderSummary();
-renderPaymnetSummary();
+loadProdcuts(()=>{
+    renderCheckOutHeader();
+    renderOrderSummary();
+    renderPaymnetSummary();
+});
+
 
 
 

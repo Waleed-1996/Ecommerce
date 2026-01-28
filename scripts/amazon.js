@@ -5,6 +5,11 @@ import { currencyFormat } from './utils/money.js';
 import "../data/cart-class.js";
 import "../data/car.js";
 import "../data/appliance.js";
+import { loadProdcuts } from "../data/products.js";
+
+loadProdcuts(renderProductsGrid);
+function renderProductsGrid(){
+
 
 let productHTML = ``;
 products.forEach((product) => {
@@ -86,7 +91,7 @@ document.querySelectorAll('.js-add-to-cart')
 
     })
   });
-
+}
 
 
 
