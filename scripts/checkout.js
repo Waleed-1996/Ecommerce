@@ -2,12 +2,29 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import {renderPaymnetSummary}  from "./checkout/paymentSummary.js"
 import { renderCheckOutHeader } from "./checkout/checkoutHeader.js";
 import { loadProdcuts } from "../data/products.js";
+import {loadCart} from "../data/cart.js";
 
-loadProdcuts(()=>{
-    renderCheckOutHeader();
+Promise.all([
+    new Promise((resolve)=>{
+        loadProdcuts(()=>{
+            resolve('value1');
+        });
+    }),
+     new Promise((resolve)=>{
+        loadCart(()=>{
+            resolve();
+        });
+    })
+]).then(()=>{
+     renderCheckOutHeader();
     renderOrderSummary();
-    renderPaymnetSummary();
-});
+    renderPaymnetSummary(); 
+})
+// loadProdcuts(()=>{
+//     renderCheckOutHeader();
+//     renderOrderSummary();
+//     renderPaymnetSummary();
+// });
 
 
 
