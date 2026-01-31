@@ -693,7 +693,31 @@ export function getProduct(productId) {
 
 //   }
 // });
-export let products =[];
+export let products = [];
+export function loadProductsFetch() {
+  const promise = fetch('https://supersimplebackend.dev/products').then((response) => {
+    return response.json();
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      } else {
+        return new Product(productDetails);
+
+      }
+    }
+    )
+  }
+
+);
+return promise;
+}
+
+
+
 export function loadProdcuts(fun) {
   let xhr = new XMLHttpRequest();
   xhr.addEventListener('load', () => {

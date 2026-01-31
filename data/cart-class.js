@@ -25,15 +25,15 @@ class Cart {
     }
 
     saveLocalSTorage() {
-        localStorage.setItem(localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productID, quantity) {
 
 
-        if (addedToCart) {
-            clearTimeout(addedToCart);
-        }
+        // if (addedToCart) {
+        //     clearTimeout(addedToCart);
+        // }
         let matchingItem;
         this.cartItems.forEach((Item) => {
             if (Item.productID === productID) {
@@ -103,8 +103,7 @@ class Cart {
 }
 export const cart=new Cart('oop-cart');
 const busnissCart=new Cart('busnissCart');
-console.log(cart);
-console.log(busnissCart);
+
 
 
 

@@ -1,8 +1,8 @@
-import { cart, addToCart } from '../data/cart.js';
+// import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { currencyFormat } from './utils/money.js';
 // import { calculateDeliveryDate } from '../data/deliveryOptions.js';
-import "../data/cart-class.js";
+import { cart } from '../data/cart-class.js';
 import "../data/car.js";
 import "../data/appliance.js";
 import { loadProdcuts } from "../data/products.js";
@@ -83,7 +83,7 @@ document.querySelectorAll('.js-add-to-cart')
       const productID = button.dataset.productId;
       let selectValue = Number(document.querySelector(`.js-quantity-${productID}`).value);
 // console.log(selectValue);
-      addToCart(productID,selectValue);
+      cart.addToCart(productID,selectValue);
       updateCartQuantity(selectValue,'js-cart-quantity');
 
       // console.log(cartQuantity);
